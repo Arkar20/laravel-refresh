@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     $podcasts = Podcast::all();
 
-    return Inertia::render('Dashboard',compact('podcasts'));
+    return Inertia::render('Dashboard', compact('podcasts'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -31,25 +31,12 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/podcasts',function(){
-    Podcast::all()->each(function(Podcast $podcast){
-        // Bus::chain(
-        //     [
-        //         Bus::batch([
-        //             new ProcessPodcast($podcast),
-        //             new ChangeStatusPodcast($podcast)
-        //         ])
+Route::get('/podcasts', function () {
 
-        //     ]
-        // )->dispatch();
-
-
-
+    Podcast::all()->each(function (Podcast $podcast) {
         ProcessPodcast::dispatch($podcast);
-
-
     });
-    return 'success';
 
+    return 'success';
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

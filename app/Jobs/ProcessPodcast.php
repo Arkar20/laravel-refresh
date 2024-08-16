@@ -20,18 +20,13 @@ class ProcessPodcast implements ShouldQueue
      */
     public function __construct(
         private Podcast $podcast
-    )
-    {
-    }
+    ) {}
 
     /**
      * Execute the job.
      */
     public function handle(): void
     {
-
-        sleep(3);
-
         $this->podcast->update([
             'status' => !$this->podcast->status
         ]);
@@ -39,6 +34,5 @@ class ProcessPodcast implements ShouldQueue
         $this->podcast->fresh();
 
         ChangeStatusPodcast::dispatch($this->podcast);
-
     }
 }
