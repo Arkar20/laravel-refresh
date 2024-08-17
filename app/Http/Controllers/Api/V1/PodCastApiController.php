@@ -11,7 +11,7 @@ class PodCastApiController extends Controller
 {
     public function index(PodcastFilter $filters)
     {
-        $podcasts = Podcast::filter($filters)->get();
+        $podcasts = Podcast::filter($filters)->with('author')->get();
 
         return $podcasts;
     }

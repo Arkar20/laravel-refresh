@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,8 @@ class PodcastFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(),
-            'status' => $this->faker->boolean()
+            'status' => $this->faker->boolean(),
+            'user_id' => User::factory()->create()->id
         ];
     }
 }
